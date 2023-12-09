@@ -16,12 +16,19 @@
     </parent>
     <modules>
         <module>twitter-to-kafka</module>
+        <module>app-config-data</module>
     </modules>
     <properties>
         <java.version>11</java.version>
+        <revision>1.0.0</revision>
     </properties>
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>tw.com.mico</groupId>
+                <artifactId>app-config-data</artifactId>
+                <version>${revision}</version>
+            </dependency>
             <dependency>
                 <groupId>org.twitter4j</groupId>
                 <artifactId>twitter4j-stream</artifactId>
