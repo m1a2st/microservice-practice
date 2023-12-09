@@ -12,6 +12,7 @@
 This service is responsible for fetching tweets from Twitter API and sending them to Kafka.
 But I use a mock service instead of Twitter API.
 
+---
 ##### Kafka Basics
 
 - Immutable, append-only logs 
@@ -32,4 +33,19 @@ But I use a mock service instead of Twitter API.
 - Kafka Topic: Consists of one or more partitions to hold data/ events 
 - Kafka Producer: Sends data to Kafka cluster (Thread safe for multiple-threading)
 - Kafka consumer: A partition can have only one consumer
-- 
+
+
+##### Kafka Producer
+
+- Producer has buffers of records per topic-partition which are sized at `based.size` property
+- Using a large `batch.size` makes compression more efficient 
+
+##### Kafka Producer properties
+
+- Key/ Value Serializer Class
+- compressionType
+- acks: 0, 1, all
+- batchSize
+- lingerMs
+- requestTimeoutMs
+- retryCount
