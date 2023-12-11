@@ -5,6 +5,11 @@
 
 ### Modules
 1. twitter-to-kafka-service
+2. kafka
+   1. kafka-model: Create and hold Java Objects for Kafka in Avro format
+   2. kafka-admin: Create and verify Kafka topics programmatically
+   3. kafka-producer: Use spring-kafka to write Kafka producer implementation
+
 
 ### twitter-to-kafka-service
 
@@ -57,3 +62,5 @@ we will use docker to run kafkacat tool to interact with Kafka cluster.
 ```bash
 docker run -it --rm --network host confluentinc/cp-kafkacat:7.0.12 kafkacat -L -b localhost:19092
 ```
+
+
