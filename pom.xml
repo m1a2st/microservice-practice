@@ -18,10 +18,14 @@
         <module>twitter-to-kafka</module>
         <module>app-config-data</module>
         <module>kafka</module>
+        <module>kafka/kafka-model</module>
+        <module>kafka/kafka-admin</module>
+        <module>kafka/kafka-producer</module>
     </modules>
     <properties>
         <java.version>11</java.version>
         <revision>1.0.0</revision>
+        <avro.version>1.11.3</avro.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -34,6 +38,11 @@
                 <groupId>org.twitter4j</groupId>
                 <artifactId>twitter4j-stream</artifactId>
                 <version>4.0.7</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.avro</groupId>
+                <artifactId>avro</artifactId>
+                <version>${avro.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

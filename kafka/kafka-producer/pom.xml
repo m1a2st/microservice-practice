@@ -10,7 +10,7 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>kafka-admin</artifactId>
+    <artifactId>kafka-producer</artifactId>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
