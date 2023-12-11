@@ -17,6 +17,7 @@
     <modules>
         <module>twitter-to-kafka</module>
         <module>app-config-data</module>
+        <module>kafka</module>
     </modules>
     <properties>
         <java.version>11</java.version>

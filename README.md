@@ -49,3 +49,11 @@ But I use a mock service instead of Twitter API.
 - lingerMs
 - requestTimeoutMs
 - retryCount
+
+### Kafkacat tool
+
+we will use docker to run kafkacat tool to interact with Kafka cluster.
+
+```bash
+docker run -it --rm --network host confluentinc/cp-kafkacat:7.0.12 kafkacat -L -b localhost:19092
+```
