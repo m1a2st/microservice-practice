@@ -58,6 +58,16 @@
                 <version>${revision}</version>
             </dependency>
             <dependency>
+                <groupId>tw.com.micro</groupId>
+                <artifactId>kafka-admin</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>tw.com.micro</groupId>
+                <artifactId>kafka-producer</artifactId>
+                <version>1.0.0</version>
+            </dependency>
+            <dependency>
                 <groupId>org.twitter4j</groupId>
                 <artifactId>twitter4j-stream</artifactId>
                 <version>4.0.7</version>
