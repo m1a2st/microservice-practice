@@ -10,8 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.retry.RetryContext;
 import org.springframework.retry.support.RetryTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.ClientResponse;
-import org.springframework.web.reactive.function.client.WebClient;
 import tw.com.micro.config.KafkaConfigData;
 import tw.com.micro.config.RetryConfigData;
 import tw.com.micro.exceptions.KafkaClientException;
@@ -33,14 +33,14 @@ public class KafkaAdminClient {
     private final RetryConfigData retryConfigData;
     private final AdminClient adminClient;
     private final RetryTemplate retryTemplate;
-    private final WebClient webClient;
+    private final RestTemplate restTemplate;
 
-    public KafkaAdminClient(KafkaConfigData kafkaConfigData, RetryConfigData retryConfigData, AdminClient adminClient, RetryTemplate retryTemplate, WebClient webClient) {
+    public KafkaAdminClient(KafkaConfigData kafkaConfigData, RetryConfigData retryConfigData, AdminClient adminClient, RetryTemplate retryTemplate, RestTemplate restTemplate) {
         this.kafkaConfigData = kafkaConfigData;
         this.retryConfigData = retryConfigData;
         this.adminClient = adminClient;
         this.retryTemplate = retryTemplate;
-        this.webClient = webClient;
+        this.restTemplate = restTemplate;
     }
 
     public void createTopics() {
@@ -68,11 +68,12 @@ public class KafkaAdminClient {
 
     private HttpStatus getSchemaRegistryStatus() {
         try {
-            return webClient.method(GET)
-                    .uri(kafkaConfigData.getSchemaRegistryUrl())
-                    .exchange()
-                    .map(ClientResponse::statusCode)
-                    .block();
+            return restTemplate
+                    .exchange(kafkaConfigData.getSchemaRegistryUrl(),
+                            GET,
+                            null,
+                            ClientResponse.class)
+                    .getStatusCode();
         } catch (Exception e) {
             return SERVICE_UNAVAILABLE;
         }
