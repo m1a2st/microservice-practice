@@ -1,4 +1,4 @@
-package tw.com.micro;
+package tw.com.micro.config;
 
 import org.apache.kafka.clients.admin.AdminClient;
 import org.springframework.context.annotation.Configuration;
