@@ -27,3 +27,22 @@ kafka-config:
       - twitter_topic
     num-of-partitions: 3
     replication-factor: 3
+
+# To increase throughput we can increase the batched data in request. This can be done by increasing the batch size,
+# adding a compression as batching is done after compression, and increase the linger ms to add a delay on producer
+# client to wait more and send more data at once.
+kafka-producer-config:
+  # because we are using id with long type
+  key-serializer-class: org.apache.kafka.common.serialization.LongSerializer
+  value-serializer-class: io.confluent.kafka.serializers.KafkaAvroSerializer
+  # Arranges compression ratio for high compress/ decompress speed
+  compression-type: snappy
+  # all: wait ack from all replicas | 1: wait only current broker's ack | 0: no ack
+  acks: all
+  # Tuning for high throughput
+  batch-size: 16384
+  batch-size-boost-factor: 100
+  # Add a delay on producer in case of light load
+  linger-ms: 5
+  request-timeout-ms: 60000
+  retry-count: 5
