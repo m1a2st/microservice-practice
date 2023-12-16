@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>tw.com.mico</groupId>
+        <groupId>tw.com.mirco</groupId>
         <artifactId>microservice-practice</artifactId>
         <version>1.0.0</version>
         <relativePath>../../pom.xml</relativePath>
@@ -20,7 +20,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>tw.com.mico</groupId>
+            <groupId>tw.com.mirco</groupId>
             <artifactId>app-config-data</artifactId>
         </dependency>
         <dependency>
