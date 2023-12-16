@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>tw.com.mirco</groupId>
+        <groupId>tw.com.micro</groupId>
         <artifactId>microservice-practice</artifactId>
         <version>1.0.0</version>
         <relativePath>../../pom.xml</relativePath>
@@ -19,16 +19,20 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId>tw.com.mirco</groupId>
+            <groupId>tw.com.micro</groupId>
             <artifactId>kafka-model</artifactId>
         </dependency>
         <dependency>
-            <groupId>tw.com.mirco</groupId>
+            <groupId>tw.com.micro</groupId>
             <artifactId>app-config-data</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.kafka</groupId>
             <artifactId>spring-kafka</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
         </dependency>
     </dependencies>
 </project>

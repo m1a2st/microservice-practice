@@ -7,7 +7,7 @@
     <packaging>jar</packaging>
 
     <parent>
-        <groupId>tw.com.mirco</groupId>
+        <groupId>tw.com.micro</groupId>
         <artifactId>microservice-practice</artifactId>
         <version>1.0.0</version>
     </parent>

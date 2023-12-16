@@ -5,13 +5,13 @@
     <packaging>jar</packaging>
     <name>twitter-to-kafka</name>
     <parent>
-        <groupId>tw.com.mirco</groupId>
+        <groupId>tw.com.micro</groupId>
         <artifactId>microservice-practice</artifactId>
         <version>1.0.0</version>
     </parent>
     <dependencies>
         <dependency>
-            <groupId>tw.com.mirco</groupId>
+            <groupId>tw.com.micro</groupId>
             <artifactId>app-config-data</artifactId>
         </dependency>
         <dependency>
