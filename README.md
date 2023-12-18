@@ -63,4 +63,31 @@ we will use docker to run kafkacat tool to interact with Kafka cluster.
 docker run -it --rm --network host confluentinc/cp-kafkacat:7.0.12 kafkacat -L -b localhost:19092
 ```
 
+# Build docker image 
 
+- `spring-boot:build-image`: Create docker image for a spring boot application
+- Layered approach: Prevents single fat jar and using cache image update
+
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <configuration>
+                <image>
+                    <name>${project.groupId}/twitter.to.kafka.service:${project.version}</name>
+                </image>
+            </configuration>
+            <executions>
+                <execution>
+                    <phase>install</phase>
+                    <goals>
+                        <goal>build-image</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
+```
