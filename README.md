@@ -91,3 +91,13 @@ docker run -it --rm --network host confluentinc/cp-kafkacat:7.0.12 kafkacat -L -
     </plugins>
 </build>
 ```
+
+# config server repository
+- this repository is used to store configuration files for all microservices
+
+# config server
+
+- application.yml: basic config server properties
+- bootstrap.yml: Required in case of loading configuration in bootstrap phase which has priority over application.yaml
+
+    - `config.server.uri`: For high availability and repository caching: Use ssh with shared file system or http with remote git repository
