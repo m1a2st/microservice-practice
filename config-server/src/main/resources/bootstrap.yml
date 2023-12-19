@@ -5,7 +5,9 @@ spring:
     config:
       server:
         git:
-          uri: file://Users/shared/projects/microservice-practice/config-server-repository
+          uri: https://github.com/m1a2st/microservice-practice
+          username: m1a2st
+          password:
           clone-on-start: true
     fail-fast: true
 

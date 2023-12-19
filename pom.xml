@@ -28,6 +28,7 @@
         <java.version>11</java.version>
         <revision>1.0.0</revision>
         <avro.version>1.11.3</avro.version>
+        <twitter4j.version>4.0.7</twitter4j.version>
         <spring-kafka.version>2.9.13</spring-kafka.version>
         <kafka-avro.serializer.version>5.3.0</kafka-avro.serializer.version>
         <spring-cloud.version>4.1.0</spring-cloud.version>
@@ -46,6 +47,7 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- microservice-practice -->
             <dependency>
                 <groupId>tw.com.micro</groupId>
                 <artifactId>app-config-data</artifactId>
@@ -69,13 +71,20 @@
             <dependency>
                 <groupId>tw.com.micro</groupId>
                 <artifactId>kafka-producer</artifactId>
-                <version>1.0.0</version>
+                <version>${revision}</version>
             </dependency>
+            <dependency>
+                <groupId>tw.com.mico</groupId>
+                <artifactId>config-server</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <!--twitter -->
             <dependency>
                 <groupId>org.twitter4j</groupId>
                 <artifactId>twitter4j-stream</artifactId>
-                <version>4.0.7</version>
+                <version>${twitter4j.version}</version>
             </dependency>
+            <!-- kafka -->
             <dependency>
                 <groupId>org.apache.avro</groupId>
                 <artifactId>avro</artifactId>
@@ -109,11 +118,13 @@
                 <artifactId>spring-kafka</artifactId>
                 <version>${spring-kafka.version}</version>
             </dependency>
+            <!-- spring retry -->
             <dependency>
                 <groupId>org.springframework.retry</groupId>
                 <artifactId>spring-retry</artifactId>
                 <version>${spring-retry.version}</version>
             </dependency>
+            <!-- spring cloud -->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-config-server</artifactId>
