@@ -11,4 +11,8 @@ spring:
           password:
           clone-on-start: true
     fail-fast: true
+  security:
+    user:
+      name: admin
+      password: ENC(YDc2E9I4efKSc4Dit26plVp6dVrNA/Mr7sPa2i5WTorfKYTIfG0SYOhDCzsHo2GA)
 

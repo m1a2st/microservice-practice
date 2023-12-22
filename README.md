@@ -101,3 +101,9 @@ docker run -it --rm --network host confluentinc/cp-kafkacat:7.0.12 kafkacat -L -
 - bootstrap.yml: Required in case of loading configuration in bootstrap phase which has priority over application.yaml
 
     - `config.server.uri`: For high availability and repository caching: Use ssh with shared file system or http with remote git repository
+
+### Encrypt password
+
+- Jasypt: Java Simplified Encryption
+- 
+- JCE: Java Cryptography Extension
