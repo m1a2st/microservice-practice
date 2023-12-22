@@ -6,6 +6,7 @@ spring:
       server:
         git:
           uri: https://github.com/m1a2st/microservice-practice
+          default-label: main
           username: m1a2st
           password:
           clone-on-start: true
