@@ -88,6 +88,11 @@
                 <artifactId>config-server</artifactId>
                 <version>${revision}</version>
             </dependency>
+            <dependency>
+                <groupId>tw.com.micro</groupId>
+                <artifactId>kafka-consumer</artifactId>
+                <version>${revision}</version>
+            </dependency>
             <!--twitter -->
             <dependency>
                 <groupId>org.twitter4j</groupId>
