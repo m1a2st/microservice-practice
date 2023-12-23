@@ -108,7 +108,29 @@ docker run -it --rm --network host confluentinc/cp-kafkacat:7.0.12 kafkacat -L -
 
     - `jasypt.encryptor.password`: Password to encrypt/ decrypt properties
     - use `ENC()` to encrypt a property value
+    - PBKDF2: Password-Based Key Derivation Function 2, reduces the speed of brute-force attacks
 - JCE: Java Cryptography Extension
     
     - `encryptor.key`: Key to encrypt/ decrypt properties
     - `{cipher}encrypted_value`: Encrypted value of a property
+    - AES: Advanced Encryption Standard
+    - More secure than Jasypt
+
+#### Asymmetric vs Symmetric Encryption
+
+- Asymmetric Encryption
+
+    - More secure as it has 2 keys
+    - Has a private secret key, and a shared public key
+    - Message is encrypted with public key and decrypted with private key
+    - Slower than Symmetric approach because it has a more complex logic 
+    - Provides confidentiality and data integrity (digital signature)
+    - Ex: RSA, DSA, ECDSA, ECDH, Diffie-Hellman
+- Symmetric Encryption
+
+    - Less secure as it has only one key
+    - Faster than Asymmetric approach as it uses the sane key in encryption and decryption
+    - Message is encrypted and decrypted with the same shared key
+    - Provides confidentiality
+    - Sharing the key securely is a challenge
+    - Ex: AES, DES, 3DES, RC4, RC5, Blowfish, Twofish
