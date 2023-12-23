@@ -105,5 +105,10 @@ docker run -it --rm --network host confluentinc/cp-kafkacat:7.0.12 kafkacat -L -
 ### Encrypt password
 
 - Jasypt: Java Simplified Encryption
-- 
+
+    - `jasypt.encryptor.password`: Password to encrypt/ decrypt properties
+    - use `ENC()` to encrypt a property value
 - JCE: Java Cryptography Extension
+    
+    - `encryptor.key`: Key to encrypt/ decrypt properties
+    - `{cipher}encrypted_value`: Encrypted value of a property
