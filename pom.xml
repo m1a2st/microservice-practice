@@ -30,7 +30,6 @@
         <module>kafka/kafka-producer</module>
         <module>common-config</module>
         <module>config-server</module>
-        <module>playground</module>
     </modules>
     <properties>
         <java.version>11</java.version>
