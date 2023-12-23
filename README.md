@@ -134,3 +134,43 @@ docker run -it --rm --network host confluentinc/cp-kafkacat:7.0.12 kafkacat -L -
     - Provides confidentiality
     - Sharing the key securely is a challenge
     - Ex: AES, DES, 3DES, RC4, RC5, Blowfish, Twofish
+
+# Kafka consumer basics
+
+- Kafka relies on logs which are known as partitions. Kafka Producers write to the end of specific partition
+  and Kafka Consumers read the logs starting from beginning while holding an offset to remember where to leave.
+- Kafka distributes partitions to consumers based ib the consumer group identifier.
+- Each partition is assigned to single consumer in a consumer group.
+- Different consumer groups can read the same data from the same partition.
+- Set partition number equal to consumer number. Note that more consumers than partition number will be idle.
+- Set poll time out to a value not too big to prevent blocking indefinitely, not too small to prevent cpu call.
+- To start from beginning with a new consumer group we can set the auto.offset.reset property to earliest which has 
+  default value of latest which is the last committed offset. You can use assign method to set tracing offset explicitly.
+  You can also use custom ConsumerRebalanceListener when subscribing and override on PartitionsAssigned method and use 
+  consumer.seekToBeginning method.
+- Multithreading in a single consumer will not use parallel partition consuming. But you can still use multiple thread 
+  in each consumer thread to gain some throughput which you scale according to year need.
+- Scaling per partition in consumer level is limit to partition number. Can add additional threads on each consumer 
+  but multi thread will break ordering in single partition you need to take care of it. With multi thread consumer per 
+  partition of course we have more TCP connections to leader and brokers.
+- Delivery semantics: At least once/ At most once/ Exactly once. Rely on consumer commits & acks.
+
+  - If you commit after processing at least once, before processing at most once.
+  - Exactly once requires to coordinate between producer and consumer and using transactions staring from producer part.
+- With spring kafka, you can give concurrency level and also can set appropriate properties.
+![kafka_comsumer.png](pic%2Fkafka_comsumer.png)
+
+## Kafka consumer properties
+
+- Key/ Value Deserializers
+- Consumer group id
+- auto.offset.reset: earliest, latest, none
+- Specific Avro Reader
+- Auto Startup
+- Concurrency level
+- Session Timeout Ms
+- Heartbeat Interval Ms
+- Max Poll Interval Ms
+- Max Poll Records
+- Max Partition Fetch Bytes
+- Max Poll Duration Ms
