@@ -32,6 +32,10 @@
         <module>config-server</module>
         <module>kafka/kafka-consumer</module>
         <module>kafka-to-elastic-service</module>
+        <module>elastic</module>
+        <module>elastic/elastic-model</module>
+        <module>elastic/elastic-config</module>
+        <module>elastic/elastic-index-client</module>
     </modules>
     <properties>
         <java.version>11</java.version>

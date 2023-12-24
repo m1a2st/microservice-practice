@@ -174,3 +174,31 @@ docker run -it --rm --network host confluentinc/cp-kafkacat:7.0.12 kafkacat -L -
 - Max Poll Records
 - Max Partition Fetch Bytes
 - Max Poll Duration Ms
+
+# ElasticSearch Basics
+
+- Open source search engine
+- Apache Lucene search engine - high performance, full-text search engine
+- Organize your data and make it easily accessible
+- Easy RESTful API based on JSON
+- Easy scale
+- Type guessing, dynamic mapping and Lucene standard analysers
+- Query DSL for complex queries
+
+## Inverted Index
+
+- Elastic uses a structure called an inverted index, which is designed to allow very fast full text searches.
+- An inverted index consist of a list of all the unique words that appear in any document, and for each word,
+  a list of the documents in which it appears.
+- You can find only terms that exist in your index. so both indexed text and the query string must be normalized into 
+  the same form.
+
+## ElasticSearch Analyzers
+
+- Analysing consist of 3 steps:
+
+  - Character filters: Remove HTML tags, convert & to and, ...
+  - Tokenizer: Split text into tokens
+  - Token filters: Lowercase, remove stop words, remove punctuation, ...
+- ElasticSearch provides many character filter. tokenizer and token filter out of the box. Theses can be combined to create
+  custom analyzers suitable for different purposes.
