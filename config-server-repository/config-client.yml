@@ -1,4 +1,4 @@
-spring:
+∑spring:
   cloud:
     config:
       allow-override: true
