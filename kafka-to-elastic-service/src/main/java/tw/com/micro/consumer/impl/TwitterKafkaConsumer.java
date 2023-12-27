@@ -11,7 +11,12 @@ import org.springframework.stereotype.Service;
 import tw.com.micro.avro.model.TwitterAvroModel;
 import tw.com.micro.client.KafkaAdminClient;
 import tw.com.micro.config.KafkaConfigData;
+import tw.com.micro.config.KafkaConsumerConfigData;
 import tw.com.micro.consumer.KafkaConsumer;
+import tw.com.micro.impl.TwitterIndexModel;
+import tw.com.micro.service.ElasticClient;
+import tw.com.micro.service.impl.TwitterElasticIndexClient;
+import tw.com.micro.transformers.AvroToElasticModelTransformer;
 
 import java.util.List;
 import java.util.Objects;
@@ -25,13 +30,21 @@ public class TwitterKafkaConsumer implements KafkaConsumer<Long, TwitterAvroMode
     private final KafkaListenerEndpointRegistry kafkaListenerEndpointRegistry;
     private final KafkaAdminClient kafkaAdminClient;
     private final KafkaConfigData kafkaConfigData;
+    private final KafkaConsumerConfigData kafkaConsumerConfigData;
+    private final AvroToElasticModelTransformer transformer;
+    private final ElasticClient<TwitterIndexModel> elasticClient;
 
     public TwitterKafkaConsumer(KafkaListenerEndpointRegistry kafkaListenerEndpointRegistry,
                                 KafkaAdminClient kafkaAdminClient,
-                                KafkaConfigData kafkaConfigData) {
+                                KafkaConfigData kafkaConfigData, KafkaConsumerConfigData kafkaConsumerConfigData,
+                                AvroToElasticModelTransformer transformer,
+                                ElasticClient<TwitterIndexModel> elasticClient) {
         this.kafkaListenerEndpointRegistry = kafkaListenerEndpointRegistry;
         this.kafkaAdminClient = kafkaAdminClient;
         this.kafkaConfigData = kafkaConfigData;
+        this.kafkaConsumerConfigData = kafkaConsumerConfigData;
+        this.transformer = transformer;
+        this.elasticClient = elasticClient;
     }
 
     @EventListener
@@ -39,12 +52,12 @@ public class TwitterKafkaConsumer implements KafkaConsumer<Long, TwitterAvroMode
         kafkaAdminClient.checkTopicsCreated();
         log.info("ApplicationStartedEvent: All topics {} are created",
                 kafkaConfigData.getTopicNamesToCreate().toArray());
-        Objects.requireNonNull(kafkaListenerEndpointRegistry.getListenerContainer("twitterTopicListener"))
+        Objects.requireNonNull(kafkaListenerEndpointRegistry.getListenerContainer(kafkaConsumerConfigData.getConsumerGroupId()))
                 .start();
     }
 
     @Override
-    @KafkaListener(id = "twitterTopicListener", topics = "${kafka-config.topic-name}")
+    @KafkaListener(id = "${kafka-consumer-config.consumer-group-id}", topics = "${kafka-config.topic-name}")
     public void receive(@Payload List<TwitterAvroModel> messages,
                         @Header(RECEIVED_KEY) List<Integer> keys,
                         @Header(RECEIVED_PARTITION) List<Integer> partitions,
@@ -56,5 +69,9 @@ public class TwitterKafkaConsumer implements KafkaConsumer<Long, TwitterAvroMode
                 partitions.toString(),
                 offsets.toString(),
                 Thread.currentThread().getId());
+        List<TwitterIndexModel> elasticModels = transformer.getElasticModels(messages);
+        List<String> documentIds = elasticClient.save(elasticModels);
+        log.info("Documents with ids {} are indexed in elastic", documentIds.toArray());
+
     }
 }

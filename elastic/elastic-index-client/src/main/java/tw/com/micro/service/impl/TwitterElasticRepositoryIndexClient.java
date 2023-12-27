@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
-@Service
+//@Service
 @RequiredArgsConstructor
-@ConditionalOnProperty(name = "elastic-config.is-repository", havingValue = "true", matchIfMissing = true)
+//@ConditionalOnProperty(name = "elastic-config.is-repository", havingValue = "true", matchIfMissing = true)
 public class TwitterElasticRepositoryIndexClient implements ElasticClient<TwitterIndexModel> {
 
     private final TwitterElasticsearchIndexRepository repository;
