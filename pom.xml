@@ -36,6 +36,7 @@
         <module>elastic/elastic-model</module>
         <module>elastic/elastic-config</module>
         <module>elastic/elastic-index-client</module>
+        <module>elastic/elastic-query-client</module>
     </modules>
     <properties>
         <java.version>11</java.version>
@@ -66,6 +67,11 @@
             <dependency>
                 <groupId>tw.com.micro</groupId>
                 <artifactId>app-config-data</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>tw.com.micro</groupId>
+                <artifactId>elastic-query-client</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
