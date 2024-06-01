@@ -4,16 +4,19 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.SearchHit;
+import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates;
 import org.springframework.data.elasticsearch.core.query.Query;
 import org.springframework.stereotype.Service;
 import tw.com.micro.ElasticQueryUtil;
 import tw.com.micro.config.ElasticQueryConfigData;
 import tw.com.micro.config.ElasticSearchConfigData;
+import tw.com.micro.exceptions.ElasticQueryClientException;
 import tw.com.micro.impl.TwitterIndexModel;
 import tw.com.micro.service.ElasticQueryClient;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -30,19 +33,35 @@ public class TwitterElasticQueryClient implements ElasticQueryClient<TwitterInde
         Query query = elasticQueryUtil.getSearchQueryById(id);
         SearchHit<TwitterIndexModel> searchResult = elasticsearchOperations.searchOne(query, TwitterIndexModel.class,
                 IndexCoordinates.of(elasticSearchConfigData.getIndexName()));
-        if (searchResult != null) {
-            throw new RuntimeException("Not found by id: " + id);
+        if (searchResult == null) {
+            log.error("Not found by id: {}", id);
+            throw new ElasticQueryClientException("Not found by id: " + id);
         }
-        return null;
+        log.info("Get index model by id: {}", id);
+        return searchResult.getContent();
     }
 
     @Override
     public List<TwitterIndexModel> getIndexModelByText(String text) {
-        return null;
+        Query query = elasticQueryUtil.getSearchQueryByFieldText(elasticQueryConfigData.getTextField(), text);
+        SearchHits<TwitterIndexModel> searchResult = elasticsearchOperations.search(query, TwitterIndexModel.class,
+                IndexCoordinates.of(elasticSearchConfigData.getIndexName()));
+        log.info("Get index model by text: {}", text);
+        return searchResult.getSearchHits()
+                .stream()
+                .map(SearchHit::getContent)
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<TwitterIndexModel> getAllIndexModel() {
-        return null;
+        Query query = elasticQueryUtil.getSearchQueryForAll();
+        SearchHits<TwitterIndexModel> searchResult = elasticsearchOperations.search(query, TwitterIndexModel.class,
+                IndexCoordinates.of(elasticSearchConfigData.getIndexName()));
+        log.info("Get all index model");
+        return searchResult.getSearchHits()
+                .stream()
+                .map(SearchHit::getContent)
+                .collect(Collectors.toList());
     }
 }
